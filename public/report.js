@@ -33,15 +33,24 @@ async function loadCategories() {
     const categories = await res.json();
     const select = document.getElementById('categorySelect');
     select.innerHTML = '';
-    categories.forEach((cat, idx) => {
+
+    // Add option to show all items regardless of category
+    const allOpt = document.createElement('option');
+    allOpt.value = '';
+    allOpt.textContent = 'كل الأصناف';
+    select.appendChild(allOpt);
+
+    categories.forEach((cat) => {
         const opt = document.createElement('option');
         opt.value = cat;
         opt.textContent = cat;
         select.appendChild(opt);
-        if (idx === 0) select.value = cat;
     });
+
+    // Default to showing all items
+    select.value = '';
     if (categories.length > 0) {
-        loadItems(select.value);
+        loadItems();
     } else {
         document.getElementById('itemsList').innerHTML = '<p>لا يوجد</p>';
     }
