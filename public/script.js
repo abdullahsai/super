@@ -1,7 +1,8 @@
 let editingId = null;
 
 async function fetchItems() {
-    const res = await fetch('/api/items');
+    // Load all items instead of just the most recent five
+    const res = await fetch('/api/items/all');
     const items = await res.json();
     const tbody = document.querySelector('#itemsTable tbody');
     tbody.innerHTML = '';
